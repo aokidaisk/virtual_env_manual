@@ -178,6 +178,40 @@ sudo chmod -R 777 storage
 sudo systemctl restart nginx
 sudo systemctl start php-fpm
 ```
+## Laravelのログイン機能を実装
+### Laravelのプロジェクト作成  
+任意のディレクトリに移動
+```
+cd /vagrant 
+```
+Laravel ver6.0とログイン機能実装に必要なlaravel/uiをインストール
+
+```
+composer create-project --prefer-dist laravel/laravel laravel_app "6.0"
+composer require laravel/ui:^1.0 --dev
+```
+### LaravelをDBに接続  
+プロジェクトディレクトリ下の.envファイルを編集しDBへの接続設定を実施
+```
+cd laravel_app
+vi .env
+```
+以下変更点
+```
+DB_DATABASE=laravel_app # 作成したdatabase名
+DB_USERNAME=root        # mysqlログインユーザ
+DB_PASSWORD=            # mysqlログインパスワード
+```
+### ログイン機能の実施  
+プロジェクトディレクトリ下にてartisanコマンドを実行
+```
+php artisan ui vue --auth
+```
+### テーブルの作成
+マイグレーションにてテーブルを作成
+```
+php artisan migrate
+```
 
 # 所感
 サーバーレッスンを通じて、コマンド操作に苦戦を強いられた。
@@ -188,3 +222,4 @@ GUIの操作に慣れ親しんでいた為、ソフトウェアの公式ペー�
 # 参考サイト
 - [NotePM MarkdownでTable(表テーブル)を書く](https://notepm.jp/help/markdown-table)  
 - [Qiita 更新！！Laravel6/7 (laravel/ui)でのLogin機能の実装方法〜MyMemo](https://qiita.com/daisu_yamazaki/items/a914a16ca1640334d7a5)  
+- [HEARTBEATE nginx連載4回目:nginxの設定、その2-バーチャルサーバの設定](https://heartbeats.jp/hbblog/2012/04/nginx04.html)  
